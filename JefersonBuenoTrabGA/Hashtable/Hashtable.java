@@ -1,4 +1,4 @@
-package JefersonBuenoTrabGA;
+package JefersonBuenoTrabGA.Hashtable;
 
 public interface Hashtable<V> {
     /**

@@ -1,4 +1,4 @@
-package JefersonBuenoTrabGA;
+package JefersonBuenoTrabGA.Hashtable;
 
 public class Item<V> {
     private int key;
@@ -33,5 +33,9 @@ public class Item<V> {
      */
     public static <V> Item<V> create(int key, V value) {
         return new Item<V>(key, value);
+    }
+
+    public static Item<Integer> create(int key) {
+        return new Item<Integer>(key, key);
     }
 }

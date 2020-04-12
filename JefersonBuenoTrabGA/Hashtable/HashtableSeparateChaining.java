@@ -1,4 +1,4 @@
-package JefersonBuenoTrabGA;
+package JefersonBuenoTrabGA.Hashtable;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
