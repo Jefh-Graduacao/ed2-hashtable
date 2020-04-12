@@ -1,4 +1,4 @@
-package JefersonBuenoTrabGA.Hashtable;
+package JefersonBuenoTrabGA;
 
 public class HashtableOpenAddressing<V> implements Hashtable<V> {
     private final int capacity;
@@ -102,13 +102,13 @@ public class HashtableOpenAddressing<V> implements Hashtable<V> {
 
     private int hashQuadraticProbing(int key, int j) {
         var h1 = basicHash(key);
-        return (h1 + (int)Math.pow(j, 2)) % 11;
+        return (h1 + (int)Math.pow(j, 2)) % this.capacity;
     }
 
     private int hashDoubleHashing(int key, int j) {
         var h1 = basicHash(key);
         var secHash = this.q - (key % this.q);
-        return (h1 + j * secHash) % 11;
+        return (h1 + j * secHash) % this.capacity;
     }
 
     private int basicHash(int key) {

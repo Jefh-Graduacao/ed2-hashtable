@@ -1,12 +1,14 @@
-package JefersonBuenoTrabGA.Hashtable;
+package JefersonBuenoTrabGA;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
-public class HashtableSeparateChaining<V> implements Hashtable<V> {
+public class HashtableSeparateChaining<V> implements Hashtable<V>, Iterable<V> {
 
     // https://docs.oracle.com/javase/tutorial/java/generics/restrictions.html#createArrays
-    // Usei um arraylist porque em Java não é possível criar arrays de tipos parametrizados e
+    // Usei um arraylist porque em Java não é possível criar arrays de tipos
+    // parametrizados e
     // é seguro considerar que os acessos em um ArrayList são O(1).
     private final ArrayList<LinkedList<Item<V>>> table;
     private final int capacity;
@@ -18,6 +20,7 @@ public class HashtableSeparateChaining<V> implements Hashtable<V> {
     public HashtableSeparateChaining(int initialCapacity) {
         this.capacity = initialCapacity;
         table = new ArrayList<>(this.capacity);
+        //table = (LinkedList<V>[])new ItemEntry[this.capacity];
 
         for (int i = 0; i < this.capacity; i++) {
             table.add(new LinkedList<>());
@@ -29,8 +32,8 @@ public class HashtableSeparateChaining<V> implements Hashtable<V> {
         var hash = hash(key);
         var linkedList = table.get(hash);
 
-        for(var item : linkedList) {
-            if(item.getKey() == key) {
+        for (var item : linkedList) {
+            if (item.getKey() == key) {
                 linkedList.remove(item);
                 return item;
             }
@@ -44,9 +47,10 @@ public class HashtableSeparateChaining<V> implements Hashtable<V> {
         var positionToInsert = hash(item.getKey());
 
         var entry = table.get(positionToInsert);
-        // Tratamento de chaves duplicadas. A estratégia usada foi ignorar o novo valor (manter o original)
-        for(var listEntry: entry) {
-            if(listEntry.getKey() == item.getKey()) {
+        // Tratamento de chaves duplicadas. A estratégia usada foi ignorar o novo valor
+        // (manter o original)
+        for (var listEntry : entry) {
+            if (listEntry.getKey() == item.getKey()) {
                 return -1;
             }
         }
@@ -56,15 +60,15 @@ public class HashtableSeparateChaining<V> implements Hashtable<V> {
     }
 
     /**
-     * Procura por um item na hashtable usando a chave especificada
-     * Retorna nulo caso não encontre a chave
+     * Procura por um item na hashtable usando a chave especificada Retorna nulo
+     * caso não encontre a chave
      */
     @Override
     public Item<V> search(int key) {
         var hash = hash(key);
-        
-        for(var item : table.get(hash)) {
-            if(item.getKey() == key) 
+
+        for (var item : table.get(hash)) {
+            if (item.getKey() == key)
                 return item;
         }
 
@@ -73,12 +77,12 @@ public class HashtableSeparateChaining<V> implements Hashtable<V> {
 
     @Override
     public void print() {
-        for(int tableIndex = 0; tableIndex < table.size(); tableIndex++) {
+        for (int tableIndex = 0; tableIndex < table.size(); tableIndex++) {
             var list = table.get(tableIndex);
-            if(!list.isEmpty()) {
+            if (!list.isEmpty()) {
                 System.out.printf("(%d) ", tableIndex);
                 for (var item : list) {
-                    System.out.printf("{ Key: %d, Value: %s } ", item.getKey(), item.getValue().toString());
+                    System.out.print(item.toString() + " ");
                 }
                 System.out.println();
             }
@@ -87,5 +91,30 @@ public class HashtableSeparateChaining<V> implements Hashtable<V> {
 
     private int hash(int key) {
         return key % this.capacity;
+    }
+
+    @Override
+    public Iterator<V> iterator() {
+        var size = this.capacity;
+        var table = this.table;
+        return new Iterator<V>() {
+            private int currentIndex = 0;
+
+            @Override
+            public boolean hasNext() {
+                return currentIndex < size;
+            }
+
+            @Override
+            public V next() {
+
+                return null;
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
     }
 }

@@ -1,13 +1,9 @@
 package JefersonBuenoTrabGA;
 
-import JefersonBuenoTrabGA.Hashtable.Hashtable;
-import JefersonBuenoTrabGA.Hashtable.HashtableSeparateChaining;
-import JefersonBuenoTrabGA.Hashtable.Item;
-
 public class SeparateChainMain {
     static final String separator = "\n" + "-".repeat(60) + "\n";
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         var table = createSeparateChainingTable();
         print("Criação da hashtable", table);
 

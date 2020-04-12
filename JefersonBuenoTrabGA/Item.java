@@ -1,4 +1,4 @@
-package JefersonBuenoTrabGA.Hashtable;
+package JefersonBuenoTrabGA;
 
 public class Item<V> {
     private int key;

@@ -1,7 +1,6 @@
 package JefersonBuenoTrabGA;
 
-import JefersonBuenoTrabGA.Hashtable.HashtableOpenAddressing;
-import JefersonBuenoTrabGA.Hashtable.HashtableOpenAddressing.ColisionSolutionStrategy;
+import JefersonBuenoTrabGA.HashtableOpenAddressing.ColisionSolutionStrategy;
 
 /**
  * Classe para validações iniciais, tomando como base os exemplos das aulas
@@ -29,6 +28,15 @@ public class TestsSlides {
     }
 
     private static HashtableOpenAddressing<Integer> create(ColisionSolutionStrategy css) {
-        return HashtableCreationHelper.newOpenAddressingSlides(css); 
+        var table = new HashtableOpenAddressing<Integer>(11, 7, css);
+
+        table.insert(Item.create(7));
+        table.insert(Item.create(17));
+        table.insert(Item.create(36));
+        table.insert(Item.create(100));
+        table.insert(Item.create(106));
+        table.insert(Item.create(205));
+
+        return table;
     }
 }
