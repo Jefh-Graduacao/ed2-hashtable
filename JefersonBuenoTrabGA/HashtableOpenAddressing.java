@@ -119,6 +119,11 @@ public class HashtableOpenAddressing<V> implements Hashtable<V> {
         LINEAR_PROBING, QUADRATIC_PROBING, DOUBLE_HASHING
     }
 
+    /**
+     * Classe auxiliar para representar cada item da hashtable
+     * Serve para controlar quais itens foram deletados
+     * @param <T>
+     */
     private class ItemEntry<T> {
         private boolean deleted;
         private Item<T> item;
