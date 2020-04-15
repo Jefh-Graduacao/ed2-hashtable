@@ -3,7 +3,7 @@ package JefersonBuenoTrabGA;
 public class SeparateChainMain {
     static final String separator = "\n" + "-".repeat(60) + "\n";
 
-    public static void main2(String[] args) {
+    public static void main(String[] args) {
         var table = createSeparateChainingTable();
         print("Criação da hashtable", table);
 
