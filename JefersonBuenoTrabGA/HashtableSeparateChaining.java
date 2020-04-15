@@ -21,7 +21,6 @@ public class HashtableSeparateChaining<V> implements Hashtable<V> {
         this(16);
     }
 
-    
     public HashtableSeparateChaining(int initialCapacity) {
         capacity = initialCapacity;
         createTable();
