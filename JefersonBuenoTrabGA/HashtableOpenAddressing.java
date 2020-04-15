@@ -1,27 +1,43 @@
 package JefersonBuenoTrabGA;
 
 public class HashtableOpenAddressing<V> implements Hashtable<V> {
-    private final int capacity;
+    static final float MAX_LOAD_FACTOR = 0.5f;
+
     private final int q;
     private final ColisionSolutionStrategy colisionSolutionStrategy;
-
-    private final ItemEntry<V>[] table;
     
-    @SuppressWarnings("unchecked")
+    private int capacity;
+    private int count;
+    private ItemEntry<V>[] table;
+    
     public HashtableOpenAddressing(int capacity, int q, ColisionSolutionStrategy colisionStrategy) {
         this.capacity = capacity;
         
-        // Não trabalhei em validações de 'q' pois achei que isso foge do escopo do trabalho
+        // Não trabalhei em validações de 'q' pois achei que isso foge do escopo aqui
         this.q = q;
         this.colisionSolutionStrategy = colisionStrategy;
+        
+        createTable();
+    }
 
-        table = (ItemEntry<V>[])new ItemEntry[this.capacity];
+    /**
+     * Cria uma nova tabela interna de acordo com a capacidade definida em this.capacity 
+     * e define this.table para referenciar a tabela criada
+     */
+    @SuppressWarnings("unchecked")
+    private void createTable() {
+        table = (ItemEntry<V>[])new ItemEntry[capacity];
     }
 
     @Override
     public Item<V> delete(int key) {
         var entryToDelete = findEntry(key);
+        
+        if(entryToDelete == null)
+            return null;
+
         entryToDelete.delete();
+        count -= 1;
         return entryToDelete.getItem();
     }
 
@@ -41,6 +57,12 @@ public class HashtableOpenAddressing<V> implements Hashtable<V> {
         // Se não houver item na posição 'hash' ou se o item tiver sido deletado, devemos usá-la
 
         table[hash] = new ItemEntry<V>(item);
+        count += 1;
+
+        if(getLoadFactor() >= MAX_LOAD_FACTOR) {
+            resize();
+        }
+
         return hash;
     }
 
@@ -113,6 +135,30 @@ public class HashtableOpenAddressing<V> implements Hashtable<V> {
 
     private int basicHash(int key) {
         return key % this.capacity;
+    }
+
+    private float getLoadFactor() {
+        return (float) count / table.length;
+    }
+
+    private void resize() {
+        var oldTable = table;
+
+        /* Aqui a hashtable é "resetada", ou seja, 
+         * a única fonte de informações sobre o estado anterior é a variável oldTable. */
+        capacity = table.length * 2;
+        count = 0;
+
+        createTable(); 
+
+        for (var tableItem : oldTable) {
+            /* Aqui é seguro ignorar os itens deletados porque, 
+             * de qualquer forma, todos os hashes serão recalculados */
+            if(tableItem == null || tableItem.isDeleted())
+                continue;
+
+            this.insert(tableItem.getItem());
+        }
     }
 
     public enum ColisionSolutionStrategy {
