@@ -33,7 +33,7 @@ public class HashtableOpenAddressing<V> implements Hashtable<V> {
     public Item<V> delete(int key) {
         var entryToDelete = findEntry(key);
         
-        if(entryToDelete == null)
+        if(entryToDelete == null || entryToDelete.isDeleted())
             return null;
 
         entryToDelete.delete();
@@ -91,10 +91,17 @@ public class HashtableOpenAddressing<V> implements Hashtable<V> {
 
     @Override
     public void print() {
-        System.out.printf(
-            "%nHashtable's capacity is %d%n" +
-            "The colision strategy being used is %s%n%n", 
-            this.capacity, this.colisionSolutionStrategy);
+        final var doubleLine = "=".repeat(80);
+
+        System.out.printf("%s%n" + 
+            "%s%n" + 
+            "Hashtable's capacity is %d and it has %d elements%n" +
+            "The colision strategy being used is %s%n" + 
+            "The load factor is %.3f the hashtable will resize when it reaches %.3f%n" +
+            "%s%n" + 
+            "Items:%n", 
+            " ".repeat(16) + "Hash table (Open Addresing) info", doubleLine, capacity, count, 
+            colisionSolutionStrategy, getLoadFactor(), MAX_LOAD_FACTOR, "-".repeat(80));
 
         for(int i = 0; i < table.length; i++) {
             var entry = table[i];
@@ -102,6 +109,8 @@ public class HashtableOpenAddressing<V> implements Hashtable<V> {
 
             System.out.printf("[%02d] %s%n", i, entry.getItem().toString());
         }
+        
+        System.out.println(doubleLine);
     }
 
     private int hash(int key, int j) {

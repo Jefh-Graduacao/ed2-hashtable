@@ -92,14 +92,15 @@ public class HashtableSeparateChaining<V> implements Hashtable<V> {
 
     @Override
     public void print() {
-        final var line = "-".repeat(80);
         final var doubleLine = "=".repeat(80);
-
         System.out.printf("%s%n" + 
+            "%s%n" + 
             "Hashtable's capacity is %d and it has %d elements%n" +
             "The load factor is %.3f the hashtable will resize when it reaches %.3f%n" +
-            "%s%n" + "Items:%n", 
-            doubleLine, capacity, count, getLoadFactor(), MAX_LOAD_FACTOR, line);
+            "%s%n" + 
+            "Items:%n", 
+            " ".repeat(16) + "Hash table (Separate Chaining) info", doubleLine, capacity, count, 
+            getLoadFactor(), MAX_LOAD_FACTOR, "-".repeat(80));
 
         for (int tableIndex = 0; tableIndex < table.length; tableIndex++) {
             var list = table[tableIndex];
