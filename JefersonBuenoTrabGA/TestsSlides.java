@@ -31,7 +31,7 @@ public class TestsSlides {
     }
 
     private static HashtableOpenAddressing<Integer> create(ColisionSolutionStrategy css) {
-        var table = new HashtableOpenAddressing<Integer>(11, 7, css);
+        var table = new HashtableOpenAddressing<Integer>(8, 7, css);
 
         table.insert(Item.create(7));
         table.insert(Item.create(17));
