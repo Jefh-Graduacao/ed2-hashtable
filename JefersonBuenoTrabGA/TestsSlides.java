@@ -8,8 +8,11 @@ import JefersonBuenoTrabGA.HashtableOpenAddressing.ColisionSolutionStrategy;
 public class TestsSlides {
     public static void main(String[] args) {
         testLinearProbing();
+        System.out.println();
         testQuadraticProbing();
+        System.out.println();
         testDoubleHashing();
+        System.out.println();
     }
 
     private static void testLinearProbing() {
