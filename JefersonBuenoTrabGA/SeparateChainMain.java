@@ -42,7 +42,7 @@ public class SeparateChainMain {
         return hashtable;
     }
 
-    private static void print(String operationPerformed, Hashtable hashtable) {
+    private static <V> void print(String operationPerformed, Hashtable<V> hashtable) {
         var stars = "*".repeat(7);
         System.out.printf("%s %s %s\n", stars, operationPerformed, stars);
         hashtable.print();
