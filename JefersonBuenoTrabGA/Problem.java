@@ -19,7 +19,7 @@ public class Problem {
     }
 
     public static void solveProblem(int sum, Integer[] input) {
-        var hashtable = new HashtableSeparateChaining<Integer>(16);
+        var hashtable = new HashtableSeparateChaining<Integer>(4);
         for(var i: input) {
             hashtable.insert(Item.create(i));
         }
