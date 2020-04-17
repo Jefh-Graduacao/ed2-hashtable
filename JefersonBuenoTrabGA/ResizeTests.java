@@ -12,24 +12,28 @@ public class ResizeTests {
             args = new String [] { "auto", "openaddressing", "linear_probing", "1", "2" };
         }
 
-        if(args == null || args.length < 1) {
-            System.out.printf("%s%s%s%n", AnsiEscapeCodes.RED, 
-                "Este programa precisa de, no mínimo, dois argumentos da linha de comando para funcionar", AnsiEscapeCodes.RESET);
-            
+        if(args == null || args.length < 2) {
+            printError("Este programa precisa de, no mínimo, dois argumentos da linha de comando para funcionar");
             return;
         }
 
         var mode = args[0];
         var type = args[1];
 
+        if(!type.equals("openaddressing") && !type.equals("separatechaining")) {
+            printError("Os tipos de hashtable disponíveis são 'openaddressing' e 'separatechaining'");
+            return;
+        }
+
         var openAddressing = "openaddressing".equals(type);
         var availableCss
             = Arrays.asList(new String[] { "linear_probing", "quadratic_probing", "double_hashing" });
             
         if(openAddressing && (args.length < 3 || !availableCss.contains(args[2]))) {
-            System.out.printf("Para criar uma hashtable do tipo Open Addressing " + 
+            var msg = String.format("Para criar uma hashtable do tipo Open Addressing " + 
                 "é necessário definir uma estratégia de tratamento de colisões%n" + 
                 "As opções disponíveis são %s%n", String.join(", ", availableCss));
+            printError(msg);
             return;
         }
 
@@ -175,5 +179,11 @@ public class ResizeTests {
             "rm <key>\t\tRemove a entrada com a chave especificada%n" + 
             "find <key>\t\tBusca por uma entrada usando a chave especificada%n" + 
             "show\t\t\tMostra informações internas da Hashtable%n%n");
+    }
+
+    private static void printError(String message) {
+        System.out.printf(AnsiEscapeCodes.BACKGROUND_RED + AnsiEscapeCodes.WHITE +
+                "%s" + AnsiEscapeCodes.RESET + AnsiEscapeCodes.RED + " %s" + AnsiEscapeCodes.RESET + "%n",
+                "ERRO:", message);
     }
 }
