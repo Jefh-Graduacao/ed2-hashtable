@@ -99,7 +99,7 @@ public class HashtableSeparateChaining<V> implements Hashtable<V> {
             "The load factor is %.3f the hashtable will resize when it reaches %.3f%n" +
             "%s%n" + 
             "Items:%n", 
-            " ".repeat(16) + "Hash table (Separate Chaining) info", doubleLine, capacity, count, 
+            " ".repeat(16) + "Hashtable (Separate Chaining) info", doubleLine, capacity, count, 
             getLoadFactor(), MAX_LOAD_FACTOR, "-".repeat(80));
 
         for (int tableIndex = 0; tableIndex < table.length; tableIndex++) {

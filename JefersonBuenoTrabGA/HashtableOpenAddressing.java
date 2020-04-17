@@ -100,7 +100,7 @@ public class HashtableOpenAddressing<V> implements Hashtable<V> {
             "The load factor is %.3f the hashtable will resize when it reaches %.3f%n" +
             "%s%n" + 
             "Items:%n", 
-            " ".repeat(16) + "Hash table (Open Addresing) info", doubleLine, capacity, count, 
+            " ".repeat(16) + "Hashtable (Open Addresing) info", doubleLine, capacity, count, 
             colisionSolutionStrategy, getLoadFactor(), MAX_LOAD_FACTOR, "-".repeat(80));
 
         for(int i = 0; i < table.length; i++) {
